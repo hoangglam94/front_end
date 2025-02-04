@@ -14,6 +14,13 @@ function Login({ setUser }) {
     const url = "https://backend-server-d9vj.onrender.com";
 
     e.preventDefault();
+        // Email validation
+    // Check valid email input
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address.');
+      return; // Stop the function if the email is invalid
+    };
+    
     try {
       const response = await axios.post(url +'/login', { email, password });
       console.log(response);
