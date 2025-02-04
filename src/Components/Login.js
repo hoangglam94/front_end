@@ -11,7 +11,7 @@ function Login({ setUser }) {
   const navigate = useNavigate();
   
   const handleSubmit = async (e) => {
-    const url = "https://backend-server-d9vj.onrender.com:3030";
+    const url = "https://backend-server-d9vj.onrender.com";
 
     e.preventDefault();
     try {

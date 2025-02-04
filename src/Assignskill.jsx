@@ -21,7 +21,7 @@ const Assignskill = () => {
     const [selectedSkills, setSelectedSkills] = useState([])
 
 
-    const url = "https://backend-server-d9vj.onrender.com:3030";
+    const url = "https://backend-server-d9vj.onrender.com";
 
 
     const handleCheckboxChange = (event) => {
