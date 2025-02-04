@@ -22,7 +22,7 @@ const CreateProject = () => {
     const [nameError, setNameError] = useState(''); // State for project name error
 
     const navigate = useNavigate();
-    const url = "http://localhost:3030";
+    const url = "https://backend-server-d9vj.onrender.com:3030";
   
     const handleDrop = (item) => {
         setDroppedItems((prevItems) => [...prevItems, { id: item.id, name: item.name }]);    };

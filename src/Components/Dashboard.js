@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const url = "http://localhost:3030";
+  const url = "https://backend-server-d9vj.onrender.com:3030";
   useEffect(() => {
     const fetchEmail = async () => {
       try {

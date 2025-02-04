@@ -13,7 +13,7 @@ function SignUp({ setUser }) {
   const [error, setError] = useState('');
   const [manager, setManager] = useState('');
   const navigate = useNavigate();
-  const url ="http://localhost:3030";
+  const url ="https://backend-server-d9vj.onrender.com:3030";
   useEffect(() => {
     setManager(isAdmin ? '1' : '0');
   }, [isAdmin]); 

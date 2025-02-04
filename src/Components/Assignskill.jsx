@@ -19,7 +19,7 @@ const skillsList = [
 
 
 const Assignskill = () => {
-    const url = "http://localhost:3030";
+    const url = "https://backend-server-d9vj.onrender.com:3030";
     const [selectedSkills, setSelectedSkills] = useState([])
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(true);
