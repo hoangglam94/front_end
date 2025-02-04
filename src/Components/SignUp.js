@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './SignUp.css';
-import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignUp({ setUser }) {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ function SignUp({ setUser }) {
   const [error, setError] = useState('');
   const [manager, setManager] = useState('');
   const navigate = useNavigate();
-
+  const url ="http://localhost:3030";
   useEffect(() => {
     setManager(isAdmin ? '1' : '0');
   }, [isAdmin]); 
@@ -21,7 +22,7 @@ function SignUp({ setUser }) {
     e.preventDefault();
     try {
 
-      const response = await axios.post('backend-server-d9vj:3030/signup', { name, email, password, manager });
+      const response = await axios.post(url+'/signup', { name, email, password, manager });
       console.log(response);
 
       if (response.data.signUpStatus && isAdmin) {

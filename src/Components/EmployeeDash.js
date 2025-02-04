@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';  // Use useNavigate for navigation in React Router v6
 import axios from 'axios';
-
-
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();  // Use useNavigate for navigation
@@ -10,11 +8,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
+  const url ="http://localhost:3030";
 useEffect(() => {
   const fetchProjects = async () => {
       try {
-          const response = await axios.get('backend-server-d9vj:3030/api/projects');
+          const response = await axios.get(url +'/api/projects');
           console.log(response.data)
           
           const existingProjectIds = new Set(projects.map(project => project.id));

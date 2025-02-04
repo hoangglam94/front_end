@@ -3,8 +3,12 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragItem from './DragItem';
 import DropZone from './DropZone';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
+
+
 
 
 const CreateProject = () => {
@@ -18,7 +22,7 @@ const CreateProject = () => {
     const [nameError, setNameError] = useState(''); // State for project name error
 
     const navigate = useNavigate();
-
+    const url = "http://localhost:3030";
   
     const handleDrop = (item) => {
         setDroppedItems((prevItems) => [...prevItems, { id: item.id, name: item.name }]);    };
@@ -37,7 +41,7 @@ const CreateProject = () => {
   
         try {
   
-          const response = await axios.get('https://backend-server-d9vj.onrender.com:3030/api/employees');
+          const response = await axios.get(url+'/api/employees');
   
           console.log(response.data);
           // Create a Set to track unique employee IDs
@@ -89,7 +93,7 @@ const CreateProject = () => {
         };
         try {
             // Replace with your actual API endpoint for creating a project
-            const response = await axios.post('backend-server-d9vj:3030api/create-project', projectData);
+            const response = await axios.post(url +'/api/create-project', projectData);
             console.log('Project pass successfully:', response.data);
 
             if(response.data.CreateStatus){

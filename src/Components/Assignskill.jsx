@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {  useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import axios from "axios";
+import axios from 'axios';
+
 
 const skillsList = [
 
@@ -18,7 +19,7 @@ const skillsList = [
 
 
 const Assignskill = () => {
-
+    const url = "http://localhost:3030";
     const [selectedSkills, setSelectedSkills] = useState([])
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(true);
@@ -31,7 +32,7 @@ const Assignskill = () => {
           try {
             const token = localStorage.getItem('token');
     
-            const result = await axios.get('backend-server-d9vj:3030/api/get-email', {
+            const result = await axios.get(url+'/api/get-email', {
               headers: {
                 Authorization: `${token}`
               }
@@ -72,7 +73,7 @@ const Assignskill = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        axios.post('backend-server-d9vj:3030/dashboard/assignskill' ,{ selectedSkills } , {params: { email }})
+        axios.post(url+'/dashboard/assignskill' ,{ selectedSkills } , {params: { email }})
         .then(result => {
             console.log(result);
             if(result.data.AssignStatus){

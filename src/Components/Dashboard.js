@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -8,13 +9,13 @@ const Dashboard = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const url = "http://localhost:3030";
   useEffect(() => {
     const fetchEmail = async () => {
       try {
         const token = localStorage.getItem('token');
 
-        const result = await axios.get('backend-server-d9vj:3030/api/get-email', {
+        const result = await axios.get(url+'/api/get-email', {
           headers: {
             Authorization: `${token}`
           }
@@ -39,7 +40,7 @@ const Dashboard = () => {
 
     const fetchProjects = async (email) => {
       try {
-        const response = await axios.get('backend-server-d9vj:3030/api/projects', {
+        const response = await axios.get(url+'/api/projects', {
           params: { email } // Send email as a query parameter or adjust as needed
         });
 

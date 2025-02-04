@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import './LogIn.css';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
+import axios from 'axios';
 
 function Login({ setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+  
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (e) => {
+    const url = "http://localhost:3030";
+
     e.preventDefault();
     try {
-      const response = await axios.post('https://backend-server-d9vj.onrender.com:3030/login', { email, password });
+      const response = await axios.post(url +'/login', { email, password });
       console.log(response);
 
       if (response.data.loginStatus && response.data.Admin) {

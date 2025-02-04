@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import axios from "axios";
-
+import axios from 'axios';
 const skillsList = [
 
     'C',
@@ -22,7 +21,7 @@ const Assignskill = () => {
     const [selectedSkills, setSelectedSkills] = useState([])
 
 
-
+    const url = process.env.BE_URL;
 
 
     const handleCheckboxChange = (event) => {
@@ -37,7 +36,7 @@ const Assignskill = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        axios.post('backend-server-d9vj:3030/dashboard/assignskill' ,{ selectedSkills })
+        axios.post(url + '/dashboard/assignskill' ,{ selectedSkills })
         .then(result => {
             console.log(result);
         })
