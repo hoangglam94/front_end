@@ -14,7 +14,7 @@ const Dashboard = () => {
       try {
         const token = localStorage.getItem('token');
 
-        const result = await axios.get('https://backend-server-d9vj.onrender.com:3030/api/get-email', {
+        const result = await axios.get('backend-server-d9vj:3030/api/get-email', {
           headers: {
             Authorization: `${token}`
           }
@@ -39,7 +39,7 @@ const Dashboard = () => {
 
     const fetchProjects = async (email) => {
       try {
-        const response = await axios.get('https://backend-server-d9vj.onrender.com:3030/api/projects', {
+        const response = await axios.get('backend-server-d9vj:3030/api/projects', {
           params: { email } // Send email as a query parameter or adjust as needed
         });
 

@@ -37,7 +37,7 @@ const Assignskill = () => {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        axios.post('https://backend-server-d9vj.onrender.com:3030/dashboard/assignskill' ,{ selectedSkills })
+        axios.post('backend-server-d9vj:3030/dashboard/assignskill' ,{ selectedSkills })
         .then(result => {
             console.log(result);
         })

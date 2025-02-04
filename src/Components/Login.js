@@ -3,6 +3,8 @@ import './LogIn.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
+
 function Login({ setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +15,7 @@ function Login({ setUser }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('54.191.253.12:3030/login', { email, password });
+      const response = await axios.post('backend-server-d9vj:3030/login', { email, password });
       console.log(response);
 
       if (response.data.loginStatus && response.data.Admin) {

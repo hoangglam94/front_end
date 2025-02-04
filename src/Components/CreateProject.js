@@ -89,7 +89,7 @@ const CreateProject = () => {
         };
         try {
             // Replace with your actual API endpoint for creating a project
-            const response = await axios.post('https://backend-server-d9vj.onrender.com:3030/api/create-project', projectData);
+            const response = await axios.post('backend-server-d9vj:3030api/create-project', projectData);
             console.log('Project pass successfully:', response.data);
 
             if(response.data.CreateStatus){

@@ -14,7 +14,7 @@ const Dashboard = () => {
 useEffect(() => {
   const fetchProjects = async () => {
       try {
-          const response = await axios.get('https://backend-server-d9vj.onrender.com:3030/api/projects');
+          const response = await axios.get('backend-server-d9vj:3030/api/projects');
           console.log(response.data)
           
           const existingProjectIds = new Set(projects.map(project => project.id));

@@ -21,7 +21,7 @@ function SignUp({ setUser }) {
     e.preventDefault();
     try {
 
-      const response = await axios.post('https://backend-server-d9vj.onrender.com:3030/signup', { name, email, password, manager });
+      const response = await axios.post('backend-server-d9vj:3030/signup', { name, email, password, manager });
       console.log(response);
 
       if (response.data.signUpStatus && isAdmin) {
