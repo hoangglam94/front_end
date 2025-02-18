@@ -5,6 +5,8 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Modal configuration
 Modal.setAppElement("#root");
@@ -16,14 +18,20 @@ const Calendar = () => {
     title: "",
     start: "",
     end: "",
+    color: "#ff0000", // Default color (red)
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const url = "https://backend-server-d9vj.onrender.com";
+  const navigate = useNavigate();
 
   // Handle event selection (opens modal for creating event)
   const handleSelect = (info) => {
     setEventDetails({
       ...eventDetails,
-      start: info.start,
-      end: info.end,
+      start: info.start.toISOString().slice(0, 16),
+      end: info.end.toISOString().slice(0, 16),
     });
     setIsModalOpen(true); // Open modal on selection
   };
@@ -36,6 +44,7 @@ const Calendar = () => {
       title: event.title,
       start: event.start,
       end: event.end,
+      color: event.color, // Keep the color intact
     };
     setEvents((prevEvents) =>
       prevEvents.map((ev) =>
@@ -44,17 +53,21 @@ const Calendar = () => {
     );
   };
 
-  // Handle event creation
-  const handleCreateEvent = () => {
-    const newEvent = {
-      id: uuidv4(),
-      title: eventDetails.title,
-      start: eventDetails.start,
-      end: eventDetails.end,
-    };
+  const handleSubmit = async () => {
 
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
-    setIsModalOpen(false); // Close modal after event is created
+    const eventData = {
+        title: eventDetails.title,
+        start: eventDetails.start,
+        end: eventDetails.end,
+        color: eventDetails.color,
+    };
+    try {
+            const response = await axios.post(url+'/api/create-event', eventData);
+            console.log('Event created successfully:', response.data);
+        }catch (err) {
+            console.error('Error creating event:', err);
+            setError('Error creating event');
+        }
   };
 
   // Handle modal input change
@@ -87,7 +100,8 @@ const Calendar = () => {
       {/* Modal for event creation */}
       <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} contentLabel="Create Event">
         <h2>Create Event</h2>
-        <form>
+        {error && <div style={{ color: "red" }}>{error}</div>}
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="title">Event Name:</label>
             <input
@@ -106,7 +120,7 @@ const Calendar = () => {
               type="datetime-local"
               id="start"
               name="start"
-              value={eventDetails.start ? eventDetails.start.toISOString().slice(0, 16) : ""}
+              value={eventDetails.start}
               onChange={handleInputChange}
               required
             />
@@ -117,14 +131,24 @@ const Calendar = () => {
               type="datetime-local"
               id="end"
               name="end"
-              value={eventDetails.end ? eventDetails.end.toISOString().slice(0, 16) : ""}
+              value={eventDetails.end}
               onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <button type="button" onClick={handleCreateEvent}>
-              Create Event
+            <label htmlFor="color">Event Color:</label>
+            <input
+              type="color"
+              id="color"
+              name="color"
+              value={eventDetails.color}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Create Event"}
             </button>
             <button type="button" onClick={() => setIsModalOpen(false)}>
               Cancel

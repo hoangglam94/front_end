@@ -19,7 +19,6 @@ const Nav = () => {
                     <>
                         <li><Link to="/Dashboard">Dashboard</Link></li>
                         <li><Link to="/Profile">Profile</Link></li>
-                        <li><Link to="/emdashboard">EmployeeDash</Link></li>
                         <li>
                             <button 
                                 onClick={handleLogout} 
