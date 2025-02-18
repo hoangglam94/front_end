@@ -3,6 +3,45 @@ import { useNavigate } from 'react-router-dom';
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
 import axios from 'axios';
+import interactionPlugin from "@fullcalendar/interaction";
+import { v4 as uuid } from "uuid";
+
+export const MyCalendar = () => {
+  const [events, setEvents] = useState([]);
+
+  const handleSelect = (info) => {
+    const { start, end } = info;
+    const eventNamePrompt = prompt("Enter, event name");
+    if (eventNamePrompt) {
+      setEvents([
+        ...events,
+        {
+          start,
+          end,
+          title: eventNamePrompt,
+          id: uuid(),
+        },
+      ]);
+    }
+  };
+
+  return (
+    <div>
+      <FullCalendar
+        editable
+        selectable
+        events={events}
+        select={handleSelect}
+        headerToolbar={{
+          start: "today prev next",
+          end: "dayGridMonth dayGridWeek dayGridDay",
+        }}
+        plugins={[daygridPlugin, interactionPlugin]}
+        views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
+      />
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -79,6 +118,7 @@ const Dashboard = () => {
   const handleCreateProject = () => {
     navigate('/create-project'); // Redirect to create-project page
   };
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
