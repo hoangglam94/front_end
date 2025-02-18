@@ -1,7 +1,6 @@
 import Nav from './Components/Nav';
 import { BrowserRouter , Routes, Route} from 'react-router-dom';
 import './App.css';
-import Footer from './Components/Footer';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
 import Dashboard from './Components/Dashboard';
@@ -26,7 +25,6 @@ function App() {
       <Route path="/create-project" element={<CreateProject />} />
     </Routes>
     </BrowserRouter>
-    <Footer/>
     </div>
   )
 }; 
