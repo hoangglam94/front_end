@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import FullCalendar from "@fullcalendar/react";
+import daygridPlugin from "@fullcalendar/daygrid";
 import axios from 'axios';
 
 const Dashboard = () => {
