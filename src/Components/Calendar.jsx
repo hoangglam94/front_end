@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -20,11 +20,61 @@ const Calendar = () => {
     end: "",
     color: "#ff0000", // Default color (red)
   });
+  
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const url = "https://backend-server-d9vj.onrender.com";
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        // Fetch email
+        const emailResponse = await axios.get(url + "/api/get-email", {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        const fetchedEmail = emailResponse.data.email;
+        setEmail(fetchedEmail);
+
+        const eventsResponse = await axios.get(`${url}/api/events`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+          params: {
+            email: fetchedEmail,          
+            },
+          });
+
+        const formattedEvents = eventsResponse.data.map(event => ({
+          id: event.id,
+          title: event.name, 
+          start: event.start, 
+          end: event.end, 
+          color: event.color,
+  
+        }));
+        setEvents(formattedEvents); // Assuming the response data is an array of events
+      } catch (error) {
+        if (error.response) {
+          console.error("Error fetching data:", error.response.data.message);
+        } else if (error.request) {
+          console.error("No response received:", error.request);
+        } else {
+          console.error("Error:", error.message);
+        }
+        setError("Error fetching data");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
 
   // Handle event selection (opens modal for creating event)
   const handleSelect = (info) => {
@@ -38,7 +88,9 @@ const Calendar = () => {
 
   // Handle event drop (update event position)
   const handleEventDrop = (info) => {
+
     const { event } = info;
+  
     const updatedEvent = {
       id: event.id,
       title: event.title,
@@ -53,22 +105,37 @@ const Calendar = () => {
     );
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
     const eventData = {
         title: eventDetails.title,
         start: eventDetails.start,
         end: eventDetails.end,
         color: eventDetails.color,
+        email: email,
     };
+    console.log(eventData)
+    
     try {
             const response = await axios.post(url+'/api/create-event', eventData);
             console.log('Event created successfully:', response.data);
+                  
+            // Update events state with the new event
+            setEvents((prevEvents) => [...prevEvents, eventData]);
+            setIsModalOpen(false);
         }catch (err) {
             console.error('Error creating event:', err);
             setError('Error creating event');
+            setLoading(false);
+        }finally{
+          setLoading(false);
         }
+            
   };
+ 
+
 
   // Handle modal input change
   const handleInputChange = (e) => {
