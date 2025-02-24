@@ -13,6 +13,8 @@ const Dashboard = () => {
   const url = "https://backend-server-d9vj.onrender.com";
 
 
+  const [hoveredProjectId, setHoveredProjectId] = useState(null);
+
   useEffect(() => {
     const fetchEmail = async () => {
       try {
@@ -79,6 +81,10 @@ const Dashboard = () => {
     navigate("/create-project");
   };
 
+  const handleProjectClick = (projectId) => {
+    navigate(`/project/${projectId}`);
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -87,11 +93,17 @@ const Dashboard = () => {
       <h1>Your Projects</h1>
       <div className="project-list">
         {projects.length > 0 ? (
-          projects.map((project) => (
-            <div key={project.id} className="project-item">
+          projects.map((project) => {
+          return(
+            <div key={project.id} className="project-item" 
+            onClick={() => handleProjectClick(project.id)}
+            onMouseEnter={() => setHoveredProjectId(project.id)}
+            onMouseLeave={() => setHoveredProjectId(null)}
+            style={{ color: hoveredProjectId === project.id ? 'red' : 'blue' }} // Change color based on hover state                        
+            >
               <h3>{project.projectName}</h3>
-            </div>
-          ))
+            </div>);
+      })
         ) : (
           <p>No projects available.</p>
         )}

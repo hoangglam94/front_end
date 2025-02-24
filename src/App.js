@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Dashboard from './Components/Dashboard';
 import CreateProject from './Components/CreateProject';
 import Assignskill from './Components/Assignskill.jsx';
+import ProjectDetails from './Components/ProjectDetails';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path="/assignskill" element={<Assignskill />} />
 
       <Route path="/create-project" element={<CreateProject />} />
+      <Route path="/project/:id" element={<ProjectDetails />} />
     </Routes>
     </BrowserRouter>
     </div>

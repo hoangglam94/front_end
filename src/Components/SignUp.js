@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './SignUp.css';
-
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,38 +12,40 @@ function SignUp({ setUser }) {
   const [error, setError] = useState('');
   const [manager, setManager] = useState('');
   const navigate = useNavigate();
-  const url ="https://backend-server-d9vj.onrender.com";
+  const url = "https://backend-server-d9vj.onrender.com";
+
   useEffect(() => {
     setManager(isAdmin ? '1' : '0');
-  }, [isAdmin]); 
+  }, [isAdmin]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Clear previous errors
+
     // Email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
     if (!emailPattern.test(email)) {
       setError('Please enter a valid email address.');
       return; // Stop the function if the email is invalid
     }
-    
+
     // Password validation
     const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least 8 characters, at least one letter and one number
     if (!passwordPattern.test(password)) {
       setError('Password must be at least 8 characters long and include both letters and numbers.');
       return; // Stop the function if the password is invalid
     }
-        
-    try {
 
-      const response = await axios.post(url+'/signup', { name, email, password, manager });
+    try {
+      const response = await axios.post(url + '/signup', { name, email, password, manager });
       console.log(response);
 
       if (response.data.signUpStatus && isAdmin) {
-        alert('Created admin account successfully')
+        alert('Created admin account successfully');
         localStorage.setItem('token', response.data.token);
         navigate('/dashboard'); // Redirect to admin dashboard
       } else if (response.data.signUpStatus) {
-        alert('Created account successfully')
+        alert('Created account successfully');
         localStorage.setItem('token', response.data.token);
         navigate('/assignskill'); // Redirect to assign skill page
       } else {
@@ -61,11 +62,9 @@ function SignUp({ setUser }) {
     if (name === 'isAdmin') {
       setIsAdmin(checked);
       setIsEmployee(!checked);
-
     } else if (name === 'isEmployee') {
       setIsEmployee(checked);
       setIsAdmin(!checked);
-
     }
   };
 
@@ -73,9 +72,7 @@ function SignUp({ setUser }) {
     <div>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div className="text-danger">
-          {error && error}
-        </div>
+        {error && <div className="text-danger">{error}</div>} 
         <input
           type="text"
           placeholder="Enter your name"
