@@ -1,0 +1,69 @@
+/* Use a sleek Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Navigation Bar */
+.nav-container {
+    display: flex;
+    align-items: center;
+    background-color: #000; /* Black background */
+    padding: 15px 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Logo */
+.nav-logo {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: auto; /* Pushes the logo to the left */
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centers the nav links */
+    flex-grow: .9; /* Makes sure the links stay centered */
+    gap: 80px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Links */
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+    color: #00d4ff; /* Neon blue effect */
+}
+
+/* Logout Button */
+.logout-btn {
+    border: none;
+    background: none;
+    color: #ff4d4d;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+.logout-btn:hover {
+    color: #ff7878;
+}
