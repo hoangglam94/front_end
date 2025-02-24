@@ -1,15 +1,72 @@
+.project-details {
+  max-width: 800px; /* Maximum width for the project details */
+/*  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding around the container */
+  background-color: #ffffff; /* White background for the main container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
 .project-name {
-    font-weight: bold;
-    color: black;
-  }
-   
-  .description-label {
-    color: red;
-    text-decoration: underline;
-  }
-    
-  .description-content {
-    color: #5c8a8a;
-    font-style: italic;
-  
-  }
+  font-weight: bold;
+  color: black;
+  font-size: 2em; /* Larger font size for the project name */
+  margin-bottom: 10px; /* Space below the project name */
+}
+
+.description-label {
+  color: red;
+  text-decoration: underline;
+}
+
+.description-content {
+  color: #5c8a8a;
+  font-style: italic;
+}
+
+.end-date-label {
+  color: black;
+  text-decoration: underline;
+}
+
+.end-date-content {
+  color: red;
+  font-weight: bold;
+}
+
+.enddate-detail,
+.project-description {
+  margin: 10px 0; /* Space above and below these sections */
+}
+.employees-container {
+  border: 1px solid #ccc; /* Border for the box */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding inside the box */
+  margin-top: 20px; /* Space above the box */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.employees-container h2 {
+  margin-bottom: 10px; /* Space below the heading */
+  font-size: 1.5em; /* Font size for the heading */
+}
+
+.employees-container ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.employees-container li {
+  padding: 8px; /* Padding for each list item */
+  border-bottom: 1px solid #ddd; /* Bottom border for separation */
+}
+
+.employees-container li:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+.employees-container p {
+  margin: 10px 0; /* Space above and below the paragraph */
+  color: #666; /* Gray color for the text */
+}

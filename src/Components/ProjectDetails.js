@@ -5,6 +5,7 @@ import "./ProjectDetails.css"
 
 const ProjectDetails = () => {
   const [project, setProject] = useState(null);
+  const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams(); // Extract the ID from the URL
@@ -24,11 +25,27 @@ const ProjectDetails = () => {
         setLoading(false);
       }
     };
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get(`${url}/api/projects/${id}/employees`);
+        console.log(response.data);
+        setEmployees(response.data); 
+      } catch (err) {
+        setError("Error fetching employees");
+        console.error(err);
+      }
+    };    
+
     fetchProjectDetails();
+    fetchEmployees();
   }, [id]); 
 
-  console.log(project);
-
+  
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -37,11 +54,30 @@ const ProjectDetails = () => {
       {project ? (
         <>
           <h1>{project.pName}</h1>
-          <p className="project-description">
+          <p className="enddate-detail">
+            <span className="end-date-label">End Date:</span>
+            <span className="end-date-content">  {formatDate(project.Enddate)}</span> </p>
+          <p  className="project-description">    
             <span className="description-label">Description:  </span>
             <span className="description-content">  {project.PDescription}</span>
           </p>
           {/* Add more project details as needed */}
+          <div className="employees-container">
+            <h2>Employees Involved</h2>
+            {employees.length > 0 ? (
+              <ul>
+                {employees.map((employee) => (
+                  <li key={employee.Emp_id} className="employee-item">
+                    <span className="employee-name" title={employee.eEmail}>
+                          {employee.eName}
+                    </span>  
+                  </li> 
+                ))}
+              </ul>
+            ) : (
+              <p>No employees assigned to this project.</p>
+            )}
+          </div>
         </>
       ) : (
         <p>No project found.</p>
