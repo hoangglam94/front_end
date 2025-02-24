@@ -26,7 +26,6 @@ const CreateProject = () => {
 
     const navigate = useNavigate();
     const url = "https://backend-server-d9vj.onrender.com";
-  
     const handleDrop = (item) => {
         setDroppedItems((prevItems) => [...prevItems, { id: item.id, name: item.name }]);    };
 
@@ -43,9 +42,7 @@ const CreateProject = () => {
       const fetchEmployees = async () => {
   
         try {
-  
           const response = await axios.get(url+'/api/employees');
-  
           console.log(response.data);
           // Create a Set to track unique employee IDs
           const existingEmployeeIds = new Set(employees.map(employee => employee.id));
