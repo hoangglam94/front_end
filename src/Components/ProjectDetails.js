@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import "./ProjectDetails.css"
 
 const ProjectDetails = () => {
   const [project, setProject] = useState(null);
@@ -27,6 +27,7 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, [id]); 
 
+  console.log(project);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -36,7 +37,10 @@ const ProjectDetails = () => {
       {project ? (
         <>
           <h1>{project.pName}</h1>
-          <p>{project.pDescription}</p>
+          <p className="project-description">
+            <span className="description-label">Description:</span>
+            <span className="description-content">  {project.PDescription}</span>
+          </p>
           {/* Add more project details as needed */}
         </>
       ) : (

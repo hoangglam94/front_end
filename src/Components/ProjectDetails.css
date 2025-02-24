@@ -1,0 +1,15 @@
+.project-name {
+    font-weight: bold;
+    color: black;
+  }
+   
+  .description-label {
+    color: red;
+    text-decoration: underline;
+  }
+    
+  .description-content {
+    color: #5c8a8a;
+    font-style: italic;
+  
+  }
