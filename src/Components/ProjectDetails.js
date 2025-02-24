@@ -38,7 +38,7 @@ const ProjectDetails = () => {
         <>
           <h1>{project.pName}</h1>
           <p className="project-description">
-            <span className="description-label">Description:</span>
+            <span className="description-label">Description:  </span>
             <span className="description-content">  {project.PDescription}</span>
           </p>
           {/* Add more project details as needed */}
@@ -46,8 +46,8 @@ const ProjectDetails = () => {
       ) : (
         <p>No project found.</p>
       )}
-    </div>
-  );
+      </div>
+    );
 };
 
 
