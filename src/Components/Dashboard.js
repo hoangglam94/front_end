@@ -99,7 +99,7 @@ const Dashboard = () => {
             onClick={() => handleProjectClick(project.id)}
             onMouseEnter={() => setHoveredProjectId(project.id)}
             onMouseLeave={() => setHoveredProjectId(null)}
-            style={{ color: hoveredProjectId === project.id ? 'red' : 'blue' }} // Change color based on hover state                        
+            style={{ color: hoveredProjectId === project.id ? 'red' : 'black' }} // Change color based on hover state                        
             >
               <h3>{project.projectName}</h3>
             </div>);
