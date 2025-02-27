@@ -20,7 +20,7 @@
     padding: 10px;
     border-radius: 5px;
     
-    color: blue; /* Default color */
+    color: black; /* Default color */
     transition: color 0.3s; 
   }  
   .project-item:hover {
