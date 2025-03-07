@@ -11,7 +11,7 @@ const ProjectDetails = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams(); // Extract the ID from the URL
-  const url = "http://localhost:3030";
+  const url = "https://backend-server-d9vj.onrender.com";
 
   // Debugging
   //console.log("ProjectDetails Loaded: Project ID:", id);
