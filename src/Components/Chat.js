@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Chat.css";
 
-const API_URL = "http://localhost:3030"; 
+const url = "https://backend-server-d9vj.onrender.com";  
 
 const Chat = ({ projectId, userId }) => {
     const [messages, setMessages] = useState([]);
