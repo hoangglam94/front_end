@@ -12,7 +12,7 @@ function Login({ setUser }) {
 
 
   const handleSubmit = async (e) => {
-    const url = "http://localhost:3030";
+    const url = "https://backend-server-d9vj.onrender.com";
     e.preventDefault();
   
     if (!email.includes("@")) {
