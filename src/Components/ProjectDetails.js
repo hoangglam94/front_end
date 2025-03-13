@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./ProjectDetails.css"
+import "./ProjectDetails.css";
 
 const ProjectDetails = () => {
   const [project, setProject] = useState(null);
@@ -10,7 +10,6 @@ const ProjectDetails = () => {
   const [error, setError] = useState(null);
   const { id } = useParams(); // Extract the ID from the URL
   const url = "https://backend-server-d9vj.onrender.com";
-
 
 
   useEffect(() => {
@@ -78,6 +77,10 @@ const ProjectDetails = () => {
               <p>No employees assigned to this project.</p>
             )}
           </div>
+          
+
+
+
         </>
       ) : (
         <p>No project found.</p>

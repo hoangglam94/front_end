@@ -77,7 +77,7 @@ const Assignskill = () => {
         .then(result => {
             console.log(result);
             if(result.data.AssignStatus){
-                navigate('/dashboard'); // Redirect to create-project page
+                navigate('/assignpersonalitytraits'); // Redirect to assign for personality traits
             }
             else{
                 alert(result.data.Error);

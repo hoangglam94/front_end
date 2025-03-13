@@ -7,6 +7,7 @@ import Dashboard from './Components/Dashboard';
 import CreateProject from './Components/CreateProject';
 import Assignskill from './Components/Assignskill';
 import ProjectDetails from './Components/ProjectDetails';
+import AssignPersonalityTraits from './Components/AssignPersonalities.js'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/LogOut" element={<h1>Log Out</h1>} />
           <Route path="/Profile" element={<h1>Profile</h1>} />
           <Route path="/assignskill" element={<Assignskill />} />
+          <Route path="/assignpersonalitytraits" element={<AssignPersonalityTraits />} />          
           <Route path="/create-project" element={<CreateProject />} />
       <Route path="/project/:id" element={<ProjectDetails />} />
         </Routes>
