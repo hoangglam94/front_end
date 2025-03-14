@@ -8,57 +8,37 @@ const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false); // Store isAdmin status
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const url = "https://backend-server-d9vj.onrender.com";
 
-
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
 
   useEffect(() => {
-    const fetchEmail = async () => {
+    const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
 
         const result = await axios.get(url + "/api/get-email", {
-          headers: {
-            Authorization: `${token}`,
-          },
+          headers: { Authorization: `${token}` },
         });
 
-        const temp = result.data.email;
-        setEmail(temp);
-        return temp;
+        setEmail(result.data.email);
+        setIsAdmin(result.data.isAdmin); // Ensure backend returns isAdmin in this endpoint
       } catch (error) {
-        if (error.response) {
-          console.error("Error fetching email:", error.response.data.message);
-        } else if (error.request) {
-          console.error("No response received:", error.request);
-        } else {
-          console.error("Error:", error.message);
-        }
-        setError("Error fetching email");
+        setError("Error fetching user data");
+        console.error(error);
       }
     };
 
-    const fetchProjects = async (email) => {
+    const fetchProjects = async (userEmail) => {
       try {
         const response = await axios.get(url + "/api/projects", {
-          params: { email },
+          params: { email: userEmail },
         });
 
-        const existingProjectIds = new Set(projects.map((project) => project.id));
-        const newProjects = response.data.filter((project) => !existingProjectIds.has(project.id));
-
-        setProjects((prevProjects) => {
-          const existingIds = new Set(prevProjects.map((project) => project.id));
-          return newProjects.reduce((acc, project) => {
-            if (!existingIds.has(project.id)) {
-              acc.push(project);
-            }
-            return acc;
-          }, [...prevProjects]);
-        });
+        setProjects(response.data);
       } catch (err) {
         setError("Error fetching projects");
         console.error(err);
@@ -67,7 +47,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       setLoading(true);
-      const email = await fetchEmail();
+      await fetchUserData();
       if (email) {
         await fetchProjects(email);
       }
@@ -75,7 +55,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [email]); // Fetch projects whenever email changes
 
   const handleCreateProject = () => {
     navigate("/create-project");
@@ -93,24 +73,29 @@ const Dashboard = () => {
       <h1>Your Projects</h1>
       <div className="project-list">
         {projects.length > 0 ? (
-          projects.map((project) => {
-          return(
-            <div key={project.id} className="project-item" 
-            onClick={() => handleProjectClick(project.id)}
-            onMouseEnter={() => setHoveredProjectId(project.id)}
-            onMouseLeave={() => setHoveredProjectId(null)}
-            style={{ color: hoveredProjectId === project.id ? 'red' : 'blue' }} // Change color based on hover state                        
+          projects.map((project) => (
+            <div
+              key={project.id}
+              className="project-item"
+              onClick={() => handleProjectClick(project.id)}
+              onMouseEnter={() => setHoveredProjectId(project.id)}
+              onMouseLeave={() => setHoveredProjectId(null)}
+              style={{ color: hoveredProjectId === project.id ? "red" : "black" }}
             >
               <h3>{project.projectName}</h3>
-            </div>);
-      })
+            </div>
+          ))
         ) : (
           <p>No projects available.</p>
         )}
       </div>
-      <button className="create-project-btn" onClick={handleCreateProject}>
-        Create Project
-      </button>
+
+      {/* Show Create Project button only if user is an admin */}
+      {isAdmin && (
+        <button className="create-project-btn" onClick={handleCreateProject}>
+          Create Project
+        </button>
+      )}
 
       <div className="calendar-container">
         <Calendar />

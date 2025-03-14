@@ -7,7 +7,7 @@ const Logout = ({ setUser }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/");  // Redirect back to home page after logout
+    navigate("/");  
   };
 
   return <button onClick={handleLogout}>Log Out</button>;

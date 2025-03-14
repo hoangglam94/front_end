@@ -1,0 +1,121 @@
+/* Chat Container - Larger & Centered */
+.chat-container {
+    position: absolute;
+    right: 30px;
+    top: 8%;
+    width: 450px; /* Slightly wider */
+    height: 550px; /* Taller chat window */
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Title */
+.chat-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Chat Box - More space for messages */
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; /* Increased height */
+}
+
+/* Message Styles */
+.message {
+    max-width: 75%;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 5px 0;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Sent messages (right side) */
+.sent {
+    align-self: flex-end;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 20px 20px 0px 20px;
+    padding: 10px;
+    max-width: 80%;
+    text-align: right;
+}
+
+/* Received messages (left side) */
+.received {
+    align-self: flex-start;
+    background-color: #e5e7eb;
+    color: black;
+    border-radius: 20px 20px 20px 0px;
+    padding: 10px;
+    max-width: 80%;
+    text-align: left;
+}
+
+/* Timestamp */
+.timestamp {
+    font-size: 10px;
+    color: gray;
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Chat Input & Button */
+.chat-input {
+    display: flex;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Larger Input Field - Now properly visible */
+.chat-input-field {
+    flex: 1;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+    width: 75%;
+    transition: all 0.3s ease-in-out;
+}
+
+.chat-input-field:focus {
+    border-color: #2563eb;
+    box-shadow: 0px 0px 5px rgba(37, 99, 235, 0.5);
+}
+
+/* Send Button - Black & Properly Sized */
+.chat-send-button {
+    width: 15%;
+    background-color: #000; /* Black */
+    color: white;
+    border: none;
+    margin-left: 5px;
+    padding: 10px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.chat-send-button:hover {
+    background-color: #333; /* Slightly lighter black */
+    transform: scale(1.05);
+}

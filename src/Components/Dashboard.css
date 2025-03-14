@@ -1,109 +1,114 @@
 /* General layout styles */
 .calendar-container {
-    position: relative;
-  }
-  
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .project-item {
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 5px;
-    
-    color: blue; /* Default color */
-    transition: color 0.3s; 
-  }  
-  .project-item:hover {
-      color: red; 
-    }
-  .create-project-btn {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Modal overlay (background) */
-  .ReactModal__Overlay {
-    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background behind modal */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed; /* Fix modal positioning */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1050; /* Ensure the modal is on top of other content */
-  }
-  
-  /* Modal content styling */
-  .ReactModal__Content {
-    background-color: #fff; /* White background for the modal */
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for the modal */
-    z-index: 1050; /* Ensure it is above other elements */
-    position: relative;
-  }
-  
-  /* Form layout and styling */
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  form input,
-  form button {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  form input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form button {
-    cursor: pointer;
-    background-color: #007bff; /* Blue color for the submit button */
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  form button[type="button"]:nth-child(2) {
-    background-color: #f44336; /* Red color for the cancel button */
-  }
-  
-  /* Additional styling for the buttons */
-  form button[type="button"]:hover {
-    background-color: #0056b3; /* Darker blue on hover for submit */
-  }
-  
-  form button[type="button"]:nth-child(2):hover {
-    background-color: #d32f2f; /* Darker red on hover for cancel */
-  }
-  
-  form input[type="color"] {
-    width: 50px;
-    height: 30px;
-    border: none;
-    padding: 0;
-  }
+  position: relative;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 15px; /* Adjusts spacing between items */
+  justify-content: center;
+  align-items: start;
+}
+
+.project-item {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  color: black; /* Default color */
+  transition: color 0.3s, transform 0.2s ease-in-out; /* Smooth transition */
+  text-align: center;
+}
+
+.project-item:hover {
+  color: red;
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+.create-project-btn {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Modal overlay (background) */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background behind modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050; /* Ensure the modal is on top of other content */
+}
+
+/* Modal content styling */
+.ReactModal__Content {
+  background-color: #fff; /* White background for the modal */
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for the modal */
+  z-index: 1050; /* Ensure it is above other elements */
+  position: relative;
+}
+
+/* Form layout and styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form input,
+form button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+form input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  cursor: pointer;
+  background-color: #007bff; /* Blue color for the submit button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+form button[type="button"]:nth-child(2) {
+  background-color: #f44336; /* Red color for the cancel button */
+}
+
+/* Additional styling for the buttons */
+form button[type="button"]:hover {
+  background-color: #0056b3; /* Darker blue on hover for submit */
+}
+
+form button[type="button"]:nth-child(2):hover {
+  background-color: #d32f2f; /* Darker red on hover for cancel */
+}
+
+form input[type="color"] {
+  width: 50px;
+  height: 30px;
+  border: none;
+  padding: 0;
+}
