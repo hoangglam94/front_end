@@ -66,7 +66,7 @@ const CreateProject = () => {
         }
         };    
       fetchEmployees();
-      }, []); // Empty dependency array to run only once on mount
+      }, ); // Empty dependency array to run only once on mount
   
     // Log updated employees
     useEffect(() => {

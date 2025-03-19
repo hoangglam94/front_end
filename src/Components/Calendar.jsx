@@ -3,10 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 // Modal configuration
 Modal.setAppElement("#root");
@@ -26,7 +24,6 @@ const Calendar = () => {
   const [error, setError] = useState(null);
 
   const url = "https://backend-server-d9vj.onrender.com";
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
