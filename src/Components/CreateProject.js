@@ -14,7 +14,6 @@ import axios from 'axios';
 const CreateProject = () => {
     const [droppedItems, setDroppedItems] = useState([]);
     const [employees, setEmployees] = useState([]);
-    
     const [projectName, setProjectName] = useState(''); // State for project name
     const [description, setDescription] = useState(''); // State for project description
     const [dueDate, setDueDate] = useState(''); // State for Due date
@@ -23,7 +22,6 @@ const CreateProject = () => {
     const [nameError, setNameError] = useState(''); // State for project name error
     const [selectedSkills, setSelectedSkills] = useState([]); // State for multiple selections of skills in filter
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);  // State for dropdown visibility
-
     const navigate = useNavigate();
     const url = "https://backend-server-d9vj.onrender.com";
     const handleDrop = (item) => {
@@ -38,42 +36,55 @@ const CreateProject = () => {
 
   
     useEffect(() => {
-  
-      const fetchEmployees = async () => {
-  
-        try {
-          const response = await axios.get(url+'/api/employees');
-          console.log(response.data);
-          // Create a Set to track unique employee IDs
-          const existingEmployeeIds = new Set(employees.map(employee => employee.id));
-          // Filter out duplicates
-          const newEmployees = response.data.filter(employee => !existingEmployeeIds.has(employee.id));
-          // Update the state with unique employees
-          setEmployees(prevEmployees => {
-            const existingIds = new Set(prevEmployees.map(employee => employee.id));
-            return newEmployees.reduce((acc, employee) => {  
-              if (!existingIds.has(employee.id)) {  
-                acc.push(employee);
-              }
-              return acc;
-            }, [...prevEmployees]);
-          });
-        } catch (err) {
-          setError('Error fetching employees');
-          console.error(err); // Log for debugging
-        } finally {
-            setLoading(false); // Set loading to false here
-        }
-        };    
-      fetchEmployees();
-      }, ); // Empty dependency array to run only once on mount
-  
-    // Log updated employees
-    useEffect(() => {
-      console.log("Updated employees:", employees);
-      setLoading(false)
-    }, [employees]);
-
+        let useremail = ""; 
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const result = await axios.get(url + "/api/get-email", {
+                    headers: { Authorization: `${token}` },
+                });
+                useremail = result.data.email; 
+            } catch (error) {
+                setError("Error fetching user data");
+                console.error(error);
+            }
+        };
+    
+        const fetchEmployees = async (useremail) => {
+            try {
+                const response = await axios.get(url + '/api/employees', {
+                    params: { useremail } // Pass useremail as a query parameter
+                });
+                console.log(response.data);
+                // Create a Set to track unique employee IDs
+                const existingEmployeeIds = new Set(employees.map(employee => employee.id));
+                // Filter out duplicates
+                const newEmployees = response.data.filter(employee => !existingEmployeeIds.has(employee.id));
+                // Update the state with unique employees
+                setEmployees(prevEmployees => {
+                    const existingIds = new Set(prevEmployees.map(employee => employee.id));
+                    return newEmployees.reduce((acc, employee) => {
+                        if (!existingIds.has(employee.id)) {
+                            acc.push(employee);
+                        }
+                        return acc;
+                    }, [...prevEmployees]);
+                });
+    
+            } catch (err) {
+                setError('Error fetching employees');
+                console.error(err); 
+            }
+        };
+        // Execute both functions sequentially
+        const fetchData = async () => {
+            setLoading(true); 
+            await fetchUserData(); 
+            await fetchEmployees(useremail); 
+            setLoading(false); 
+        };
+        fetchData(); // Call fetchData here
+    }, [])
 
     const handleSubmit = async () => {
         // Prepare the data to be submitted

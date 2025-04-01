@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const url = "https://backend-server-d9vj.onrender.com";
-
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
 
   useEffect(() => {

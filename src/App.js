@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { AuthProvider } from './Components/AuthContext.js';
 import Nav from "./Components/Nav";
 import Home from "./Components/Home";
 import SignUp from "./Components/SignUp";
@@ -13,6 +14,7 @@ import AssignPersonalityTraits from './Components/AssignPersonalities.js'
 function App() {
   const [userId, setUserId] = useState(null);
 
+
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
     console.log("Retrieved userId from localStorage:", storedUserId);  // DEBUGGING
@@ -22,6 +24,7 @@ function App() {
   }, []);
 
   return (
+    <AuthProvider> 
     <BrowserRouter>
       <div className="App">
         <Nav />
@@ -39,6 +42,8 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </AuthProvider> 
+
   );
 }
 

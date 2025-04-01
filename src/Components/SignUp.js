@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from './AuthContext.js';
 
-function SignUp({ setUser }) {
+function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -12,6 +13,7 @@ function SignUp({ setUser }) {
   const [error, setError] = useState('');
   const [manager, setManager] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Use the login function from AuthContext
   const url = "https://backend-server-d9vj.onrender.com";
 
   useEffect(() => {
@@ -40,14 +42,17 @@ function SignUp({ setUser }) {
       const response = await axios.post(url + '/signup', { name, email, password, manager });
       console.log(response);
 
-      if (response.data.signUpStatus && isAdmin) {
-        alert('Created admin account successfully');
+      if (response.data.signUpStatus) {
         localStorage.setItem('token', response.data.token);
-        navigate('/dashboard'); // Redirect to admin dashboard
-      } else if (response.data.signUpStatus) {
-        alert('Created account successfully');
-        localStorage.setItem('token', response.data.token);
-        navigate('/assignskill'); // Redirect to assign skill page
+        login(); // Update authentication state using the login function from AuthContext
+
+        if (isAdmin) {
+          alert('Created admin account successfully');
+          navigate('/dashboard'); // Redirect to admin dashboard
+        } else {
+          alert('Created account successfully');
+          navigate('/assignskill'); // Redirect to assign skill page
+        }
       } else {
         setError(response.data.Error);
       }
@@ -72,7 +77,7 @@ function SignUp({ setUser }) {
     <div>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        {error && <div className="text-danger">{error}</div>} 
+        {error && <div className="text-danger">{error}</div>}
         <input
           type="text"
           placeholder="Enter your name"
