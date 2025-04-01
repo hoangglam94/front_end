@@ -22,8 +22,14 @@ const CreateProject = () => {
     const [nameError, setNameError] = useState(''); // State for project name error
     const [selectedSkills, setSelectedSkills] = useState([]); // State for multiple selections of skills in filter
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);  // State for dropdown visibility
+    const [selectedPersonality, setSelectedPersonality] = useState([]);
+    const [isPersonDropdownOpen, setIsPersonDropdownOpen] = useState(false);
+
     const navigate = useNavigate();
     const url = "https://backend-server-d9vj.onrender.com";
+    /*const navigate = useNavigate();
+    const url = "http://localhost:3030";*/ 
+
     const handleDrop = (item) => {
         setDroppedItems((prevItems) => [...prevItems, { id: item.id, name: item.name }]);    };
 
@@ -151,6 +157,15 @@ const CreateProject = () => {
             setSelectedSkills([...selectedSkills, skill]);
         }
     };
+
+    const handlePersonalitySelect = (personality) => {
+        if (selectedPersonality.includes(personality)) {
+            setSelectedPersonality(selectedPersonality.filter(p => p !== personality));
+        } else {
+            setSelectedPersonality([...selectedPersonality, personality]);
+        }
+    };
+    
     return (
         <DndProvider backend={HTML5Backend}>
         
@@ -192,8 +207,13 @@ const CreateProject = () => {
                                           display: 'flex',
                                            justifyContent: 'space-around',
                         }}/>
-                                        <div className="dropdown" style={{ minWidth: '15em', position: 'relative', margin: '2em' }}>
-                            {/* Dropdown Selection Box */}
+                                            <div style={{ display: 'flex', gap: '2em' }}>
+                        {/* Skills Dropdown */}
+                        <div 
+                            className="dropdown" 
+                            style={{ minWidth: '15em', position: 'relative' }} 
+                            onMouseLeave={() => setIsDropdownOpen(false)} // Close the dropdown when mouse leaves
+                         >               
                             <div
                                 className={`Select ${isDropdownOpen ? 'select-clicked' : ''}`}
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -211,7 +231,7 @@ const CreateProject = () => {
                                     textAlign: 'left',
                                 }}
                             >
-                                <span>{selectedSkills.length > 0 ? selectedSkills.join(", ") : "Filter Skills"}</span>
+                                <span>{selectedSkills.length > 0 ? selectedSkills.join(", ") : "Skills"}</span>
                                 <div
                                     className={`caret ${isDropdownOpen ? 'caret-rotate' : ''}`}
                                     style={{
@@ -225,7 +245,6 @@ const CreateProject = () => {
                                 ></div>
                             </div>
 
-                            {/* Dropdown Menu */}
                             {isDropdownOpen && (
                                 <ul
                                     className="menu"
@@ -247,7 +266,14 @@ const CreateProject = () => {
                                         zIndex: 1,
                                     }}
                                 >
-                                    {["C", "C++", "Java", "Python", "JavaScript", "Go", "Ruby", "PHP"].map(skill => (
+                                    {["C", 
+                                        "C++", 
+                                        "Go",
+                                        "Java",  
+                                        "JavaScript",
+                                        "PHP",
+                                        "Python", 
+                                        "Ruby"].map(skill => (
                                         <li key={skill} className={selectedSkills.includes(skill) ? "active" : ""} style={{ padding: '0.7em 0.5em', margin: '0.3em 0', borderRadius: '0.5em', cursor: 'pointer' }}>
                                             <label style={{ 
                                                 padding: '0.5em 0.7em',
@@ -266,7 +292,7 @@ const CreateProject = () => {
                                                         margin: 0,
                                                         width: '1em',
                                                         height: '1em',
-                                                     }}
+                                                    }}
                                                 />
                                                 {skill}
                                             </label>
@@ -293,6 +319,125 @@ const CreateProject = () => {
                             )}
                         </div>
 
+                         {/* Personality Dropdown */}
+                        <div 
+                            className="dropdown" 
+                            style={{ minWidth: '15em', position: 'relative' }} 
+                            onMouseLeave={() => setIsPersonDropdownOpen(false)} // Close the dropdown when mouse leaves
+                        >
+                            <div
+                                className={`Select ${isPersonDropdownOpen ? 'select-clicked' : ''}`}
+                                onClick={() => setIsPersonDropdownOpen(!isPersonDropdownOpen)}
+                                style={{
+                                    background: '#2a2f3b',
+                                    color: '#fff',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    border: '2px #2a2f3b solid',
+                                    borderRadius: '0.5em',
+                                    padding: '1em',
+                                    cursor: 'pointer',
+                                    transition: 'background 0.3s',
+                                    textAlign: 'left',
+                                }}
+                            >
+                                <span>{selectedPersonality.length > 0 ? selectedPersonality.join(", ") : "Personality"}</span>
+                                <div
+                                    className={`caret ${isPersonDropdownOpen ? 'caret-rotate' : ''}`}
+                                    style={{
+                                        width: 0,
+                                        height: 0,
+                                        borderLeft: '5px solid transparent',
+                                        borderRight: '5px solid transparent',
+                                        borderTop: '6px solid #fff',
+                                        transition: '0.3s',
+                                        marginLeft: '8px'
+                                    }}
+                                ></div>
+                            </div>
+
+                            {isPersonDropdownOpen && (
+                                <ul
+                                    className="menu"
+                                    style={{
+                                        listStyle: 'none',
+                                        padding: '0.8em',
+                                        background: '#323741',
+                                        border: '1px #363a43 solid',
+                                        boxShadow: '0 0.5em 1em rgba(0, 0, 0, 0.2)',
+                                        borderRadius: '0.5em',
+                                        color: '#9fa5b5',
+                                        position: 'absolute',
+                                        top: '3em',
+                                        left: '0',
+                                        minWidth: '30em',  // ✅ Ensure the dropdown background covers all columns
+                                        width: 'max-content', // ✅ Expands if needed
+                                        opacity: 1,
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(3, 1fr)', // ✅ Three-column layout
+                                        gap: '0.5em',
+                                        transition: '0.2s',
+                                        zIndex: 1,
+                                    }}
+                                >
+                                    {[
+                                        "Adaptable", "Ambitious", "Analytical", 
+                                        "Charismatic", "Collaborative", "Confident", 
+                                        "Creative", "Decisive", "Delegation", 
+                                        "Detail-oriented", "Diplomatic", "Disciplined", 
+                                        "Diligent", "Empathetic", "Flexible", 
+                                        "Goal-Oriented", "Humble", "Innovative", 
+                                        "Leadership-Oriented", "Motivated", "Optimistic", 
+                                        "Reliable", "Resilient", "Social"
+                                    ].map(personality => (
+                                        <li key={personality} className={selectedPersonality.includes(personality) ? "active" : ""} 
+                                            style={{ 
+                                                padding: '0.4em', 
+                                                borderRadius: '0.5em', 
+                                                cursor: 'pointer', 
+                                                display: 'flex', 
+                                                alignItems: 'center',
+                                                gap: '0.5em' 
+                                            }}
+                                        >
+                                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5em', cursor: 'pointer' }}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedPersonality.includes(personality)}
+                                                    onChange={() => handlePersonalitySelect(personality)}
+                                                    style={{ width: '1em', height: '1em' }}
+                                                />
+                                                {personality}
+                                            </label>
+                                        </li>
+                                    ))}
+                                  <button
+                                        onClick={() => setSelectedPersonality([])}
+                                        style={{
+                                            gridColumn: 'span 3', // ✅ Spans across all three columns
+                                            padding: '0.7em 1.5em',
+                                            marginTop: '0.8em',
+                                            borderRadius: '0.5em',
+                                            background: '#f44336',
+                                            color: 'white',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            textAlign: 'center',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            width: '100%', // ✅ Ensures full width alignment
+                                        }}
+                                    >
+                                        Clear Filter
+                                    </button>
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+
+
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-around'
@@ -305,15 +450,23 @@ const CreateProject = () => {
                             <h2>Drag Items</h2>
                             {employees
                                 .filter(employee => {
-                                    if (selectedSkills.length === 0) {
+                                    //Show all employees if no filter is selected
+                                    if (selectedSkills.length === 0 && selectedPersonality.length === 0) {
                                         return true;
                                     }
                                 
-                                    // Split employee skills into an array and check if any selected skill matches
+                                    // Split employee skills and traits into an array and check if any selected filter matches
                                     const skillsArray = employee.skills ? employee.skills.split(',').map(skill => skill.trim()) : [];
+                                    const PersonalityTraitsArray = employee.personality ? employee.personality.split(',').map(personality => personality.trim()) : [];
+
+                                    // Check if the employee matches selected skills
+                                     const matchesSkill = selectedSkills.length === 0 || selectedSkills.some(skill => skillsArray.includes(skill));
+
+                                      // Check if the employee matches selected personality traits
+                                    const matchesPersonality = selectedPersonality.length === 0 || selectedPersonality.some(personality => PersonalityTraitsArray.includes(personality));
                                     
-                                    // Check if any selected skill matches the employee's skills
-                                    return selectedSkills.some(skill => skillsArray.includes(skill));
+                                      // If skills and personality filters are both applied, match both.
+                                        return matchesSkill && matchesPersonality;
                                 })
                                 .map(employee => (
                                     <DragItem key={employee.id} name={employee.eName} id={employee.id} />
