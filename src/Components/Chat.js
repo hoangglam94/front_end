@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Chat.css";
 
-const API_URL = "https://backend-server-d9vj.onrender.com";  
+const url = "https://backend-server-d9vj.onrender.com"; 
 
 const Chat = ({ projectId, userId }) => {
     const [messages, setMessages] = useState([]);
@@ -15,7 +15,7 @@ const Chat = ({ projectId, userId }) => {
     // Fetch previous messages
     const fetchMessages = async () => {
         try {
-            const response = await axios.get(`${API_URL}/chat/messages/${projectId}`);
+            const response = await axios.get(`${url}/chat/messages/${projectId}`);
             console.log("Fetched messages:", response.data); // Debugging
             setMessages(response.data);
         } catch (err) {
@@ -38,7 +38,7 @@ const Chat = ({ projectId, userId }) => {
         };
 
         try {
-            const response = await axios.post(`${API_URL}/chat/send-message`, messageData);
+            const response = await axios.post(`${url}/chat/send-message`, messageData);
             if (response.data.success) {
                 setMessage(""); // Clear input
                 fetchMessages(); // Refresh messages
@@ -64,10 +64,14 @@ const Chat = ({ projectId, userId }) => {
             <div className="chat-box">
                 {messages.length > 0 ? (
                     messages.map((msg, index) => (
-                        <div key={index} className={`message ${msg.userId === userId ? "sent" : "received"}`}>
+                        <div key={index} className={`message ${msg.user_id === userId ? "sent" : "received"}`}>
+                        <p><strong>{msg.eName}:</strong> {msg.line_text}</p>
+                        <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
+                      </div>
+                        /*<div key={index} className={`message ${msg.userId === userId ? "sent" : "received"}`}>
                             <p><strong>{msg.eName}:</strong> {msg.line_text}</p>
                             <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
-                        </div>
+                        </div>*/
                     ))
                 ) : (
                     <p className="no-messages">No messages yet. Start the conversation!</p>
