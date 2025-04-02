@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./ProjectDetails.css";
-import Chat from "./Chat.js"; 
-;
+import Chat from "./Chat"; // Ensure this import is at the top with other imports
 
 const ProjectDetails = ({ userId }) => {
   const [project, setProject] = useState(null);
@@ -12,8 +11,6 @@ const ProjectDetails = ({ userId }) => {
   const [error, setError] = useState(null);
   const { id } = useParams(); // Extract the ID from the URL
   const url = "https://backend-server-d9vj.onrender.com";
-
-
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -81,6 +78,9 @@ const ProjectDetails = ({ userId }) => {
               <p>No employees assigned to this project.</p>
             )}
           </div>
+
+          {/* Chat Component */}
+          <Chat projectId={id} userId={userId} />
         </>
       ) : (
         <p>No project found.</p>
