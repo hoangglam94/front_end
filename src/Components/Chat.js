@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Chat.css";
 
-const url = "https://backend-server-d9vj.onrender.com"; 
+const url = "https://backend-server-d9vj.onrender.com";   
 
 const Chat = ({ projectId, userId }) => {
     const [messages, setMessages] = useState([]);
@@ -65,13 +65,20 @@ const Chat = ({ projectId, userId }) => {
                 {messages.length > 0 ? (
                     messages.map((msg, index) => (
                         <div key={index} className={`message ${msg.user_id === userId ? "sent" : "received"}`}>
-                        <p><strong>{msg.eName}:</strong> {msg.line_text}</p>
-                        <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
-                      </div>
-                        /*<div key={index} className={`message ${msg.userId === userId ? "sent" : "received"}`}>
                             <p><strong>{msg.eName}:</strong> {msg.line_text}</p>
-                            <span className="timestamp">{new Date(msg.created_at).toLocaleTimeString()}</span>
-                        </div>*/
+                            <span className="timestamp">
+                                {new Date(msg.created_at).toLocaleString('en-US', {
+                                    hour: '2-digit', 
+                                    minute: '2-digit', 
+                                    second: '2-digit', 
+                                    hour12: true,
+                                    weekday: 'short',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                })}
+                            </span>
+                        </div>
                     ))
                 ) : (
                     <p className="no-messages">No messages yet. Start the conversation!</p>
@@ -92,3 +99,4 @@ const Chat = ({ projectId, userId }) => {
 };
 
 export default Chat;
+
