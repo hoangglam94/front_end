@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Chat.css";
 
-const url = "https://backend-server-d9vj.onrender.com";   
+const url = "https://backend-server-d9vj.onrender.com";
+//const url = "http://localhost:3031";
 
-const Chat = ({ projectId, userId }) => {
+const Chat = ({ projectId }) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
+    const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+
+    useEffect(() => {
+        // Re-fetch the user ID in case it changes
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            setUserId(storedUserId);
+        }
+    }, []);
 
     console.log("Chat Component Loaded:");
     console.log("Project ID:", projectId);
