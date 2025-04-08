@@ -11,6 +11,7 @@ const ProjectDetails = ({ userId }) => {
   const [error, setError] = useState(null);
   const { id } = useParams(); // Extract the ID from the URL
   const url = "https://backend-server-d9vj.onrender.com";
+  //const url = "http://localhost:3031";
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -80,7 +81,7 @@ const ProjectDetails = ({ userId }) => {
           </div>
 
           {/* Chat Component */}
-          <Chat projectId={id} userId={userId} />
+          <Chat projectId={id} />
         </>
       ) : (
         <p>No project found.</p>
