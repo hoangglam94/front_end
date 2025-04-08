@@ -74,7 +74,7 @@ const Chat = ({ projectId }) => {
             <div className="chat-box">
                 {messages.length > 0 ? (
                     messages.map((msg, index) => (
-                        <div key={index} className={`message ${msg.user_id === userId ? "sent" : "received"}`}>
+                        <div key={index} className={`message ${String(msg.user_id) === String(userId) ? "sent" : "received"}`}>
                             <p><strong>{msg.eName}:</strong> {msg.line_text}</p>
                             <span className="timestamp">
                                 {new Date(msg.created_at).toLocaleString('en-US', {
