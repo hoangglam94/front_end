@@ -5,6 +5,7 @@
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Ensure content is spread out with space between */
     background-color: #000; /* Black background */
     padding: 15px 40px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -21,18 +22,17 @@
     font-size: 1.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    margin-right: auto; /* Pushes the logo to the left */
+    margin-right: 20px; /* Adds space between logo and navigation links */
 }
 
 /* Navigation Links */
 .nav-links {
     list-style: none;
     display: flex;
-    justify-content: center; /* Centers the nav links */
-    flex-grow: .9; /* Makes sure the links stay centered */
     gap: 80px;
     margin: 0;
     padding: 0;
+    align-items: center; /* Ensure the links align in the center */
 }
 
 /* Links */
@@ -53,17 +53,34 @@
     color: #00d4ff; /* Neon blue effect */
 }
 
-/* Logout Button */
-.logout-btn {
-    border: none;
-    background: none;
-    color: #ff4d4d;
+/* Logout Link (styled like other nav links) */
+.logout-link {
+    text-decoration: none;
+    color: white; /* Matches the other link color */
     font-size: 1.2rem;
-    cursor: pointer;
     transition: color 0.3s ease-in-out;
     font-weight: 400;
+    padding: 8px 16px; /* Adds some padding for consistency */
+    border-radius: 4px; /* Rounded corners for a clean look */
 }
 
-.logout-btn:hover {
-    color: #ff7878;
+/* Hover effect */
+.logout-link:hover {
+    color: #00d4ff; /* Neon blue effect on hover */
+}
+
+/* Add User Link Styling */
+.add-user-link {
+    text-decoration: none;
+    color: white; /* Matches the other link color */
+    font-size: 1.2rem;
+    transition: color 0.3s ease-in-out;
+    font-weight: 400;
+    padding: 8px 16px; /* Consistent padding with other links */
+    border-radius: 4px; /* Rounded corners for consistency */
+}
+
+/* Hover effect */
+.add-user-link:hover {
+    color: #00d4ff; /* Neon blue effect */
 }

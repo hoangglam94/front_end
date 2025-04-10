@@ -54,11 +54,10 @@ const Nav = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsLoggedIn(false); // Update login state
-        navigate('/login');
+        navigate('/login'); // Redirect to login immediately
     };
 
     const handleAddUser  = (email) => {
-
         if (window.confirm(`Are you sure you want to add ${email} to your workspace?`)) {
             const updateEmail = async () => {
                 setLoading(true);
@@ -100,8 +99,8 @@ const Nav = () => {
                     <>
                         <li><Link to="/dashboard">Dashboard</Link></li>
                         <li><Link to="/profile">Profile</Link></li>
-                        {isAdmin && <li><button onClick={() => setShowModal(true)}>Add user to your workspace</button></li>}
-                        <li><button className="logout-btn" onClick={handleLogout}>Logout</button></li>
+                        {isAdmin && <li><Link to="#" className="add-user-link" onClick={() => setShowModal(true)}>Add user to your workspace</Link></li>}
+                        <li><a href="#" className="logout-link" onClick={handleLogout}>Logout</a></li> {/* Logout as a link */}
                     </>
                 ) : (
                     <>
@@ -112,7 +111,7 @@ const Nav = () => {
             </ul>
             {showModal && <AddUser onClose={() => setShowModal(false)} onAdd={handleAddUser} />}
             {loading && <p>Loading...</p>}        
-            {error && <p style={{ color: 'red'}}></p>}
+            {error && <p style={{ color: 'red'}}>{error}</p>} {/* Display error message */}
         </nav>
     );
 };
