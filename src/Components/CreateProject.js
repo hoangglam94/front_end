@@ -27,8 +27,7 @@ const CreateProject = () => {
 
     const navigate = useNavigate();
     const url = "https://backend-server-d9vj.onrender.com";
-    /*const navigate = useNavigate();
-    const url = "http://localhost:3030";*/ 
+    //const navigate = useNavigate();    const url = "http://localhost:3030";
 
     const handleDrop = (item) => {
         setDroppedItems((prevItems) => [...prevItems, { id: item.id, name: item.name }]);    };

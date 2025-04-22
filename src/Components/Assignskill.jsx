@@ -35,7 +35,7 @@ const Assignskill = () => {
             const result = await axios.get(`${url}/api/get-email`, {
               headers: {
                 Authorization: `${token}`
-              }});
+              }, withCredentials: true});
     
             const temp = result.data.email;
             

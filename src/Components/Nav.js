@@ -30,7 +30,7 @@ const Nav = () => {
                 const result = await axios.get(url + '/api/get-email', {
                     headers: {
                         Authorization: `${token}`
-                    }
+                    }, withCredentials: true
                 });
                 const temp = result.data.isAdmin;
 
@@ -52,7 +52,7 @@ const Nav = () => {
     }, [location]); // Re-run when the route changes
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.clear();
         setIsLoggedIn(false); // Update login state
         navigate('/login'); // Redirect to login immediately
     };
