@@ -32,11 +32,10 @@ const Assignskill = () => {
           try {
             const token = localStorage.getItem('token');
     
-            const result = await axios.get(url+'/api/get-email', {
+            const result = await axios.get(`${url}/api/get-email`, {
               headers: {
                 Authorization: `${token}`
-              }
-            });
+              }});
     
             const temp = result.data.email;
             
