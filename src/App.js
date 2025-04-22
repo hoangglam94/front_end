@@ -25,7 +25,7 @@ function App() {
 
   return (
     <AuthProvider> 
-    <BrowserRouter>
+    <BrowserRouter basename="/my-app">
       <div className="App">
         <Nav />
         <Routes>
